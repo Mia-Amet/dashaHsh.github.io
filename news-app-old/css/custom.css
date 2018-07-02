@@ -207,7 +207,7 @@ img.activator {
     }
 }
 
-@media only screen and (min-device-width: 0px) and (max-device-width: 333px) {
+@media only screen and (min-device-width: 287px) and (max-device-width: 333px) {
     span.truncate.col.s11.card-title.activator.grey-text.text-darken-4 {
         width: 90% !important!
     }
