@@ -176,6 +176,10 @@ img.activator {
     .news-container .container p.col.s6 {
         width: 50% !important;
     }
+    .news-container .container p.col.s6,
+    .news-container .container p.col.s11 {
+        padding: 0;
+    }
     .news-container .container .col.s6 {
         width: 100% !important;
     }
@@ -188,6 +192,10 @@ img.activator {
     .col.s6,
     .col.s10 {
         width: 100% !important;
+    }
+    .news-container .container p.col.s6,
+    .news-container .container p.col.s11 {
+        padding: 0;
     }
 
     #toggleBtn,
