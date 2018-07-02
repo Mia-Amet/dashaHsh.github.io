@@ -208,13 +208,13 @@ img.activator {
 }
 
 @media only screen and (min-device-width: 0px) and (max-device-width: 333px) {
-    .news-container .container span.col.s11 {
+    span.truncate.col.s11.card-title.activator.grey-text.text-darken-4 {
         width: 90% !important!
     }
 }
 
 @media only screen and (min-device-width: 0px) and (max-device-width: 286px) {
-    .news-container .container span.col.s11 {
+    span.truncate.col.s11.card-title.activator.grey-text.text-darken-4 {
         width: 89% !important!
     }
 }
