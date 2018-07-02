@@ -133,17 +133,68 @@ img.activator {
     left: 16px;
 }
 /* -------------add & remove favourites buttons */
-#toggleBtn {
-    align-self: baseline;
-    position: absolute;
-    top: 20px;
-    left: 340px;
-    z-index: 10;
-}
+#toggleBtn,
 #removeBtn {
     align-self: baseline;
     position: absolute;
-    top: 20px;
-    left: 760px;
+    top: 6px;
+    right: 30px;
     z-index: 10;
+}
+
+@media only screen and (min-device-width: 601px) and (max-device-width: 992px) {
+    #toggleBtn,
+    #removeBtn {
+        top: 4px;
+    }
+
+    .news-container .container {
+        width: 88%;
+    }
+
+    .activator {
+        margin-bottom: 8px !important;
+    }
+    .col.s11 {
+        width: 90% !important;
+    }
+    .news-container .container p.col.s6 {
+        width: 100% !important;
+    }
+    .time {
+        margin-top: 4px !important;
+        text-align: left;
+    }
+}
+
+@media only screen and (max-device-width: 633px) {
+    .news-container .container p.col.s6 {
+        width: 50% !important;
+    }
+    .news-container .container .col.s6 {
+        width: 100% !important;
+    }
+    .time {
+        text-align: right;
+    }
+}
+
+@media only screen and (max-device-width: 600px) {
+    .col.s6,
+    .col.s10 {
+        width: 100% !important;
+    }
+
+    #toggleBtn,
+    #removeBtn {
+        top: 4px;
+    }
+
+    .form {
+        display: block;
+    }
+
+    .news-container .container {
+        width: 90%;
+    }
 }
