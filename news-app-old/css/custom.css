@@ -26,6 +26,11 @@ img.activator {
     font-size: 18px !important;
     margin-bottom: 16px !important;
 }
+.news-container .container p.col.s6,
+.news-container .container p.col.s11 {
+    padding: 0;
+}
+
 /* ---------------------------------link hovers */
 .card .source-link {
     color: #26a69a !important;
