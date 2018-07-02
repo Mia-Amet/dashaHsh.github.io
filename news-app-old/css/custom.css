@@ -1,0 +1,149 @@
+/* ----------------------------------CONTAINERS */
+.news-container .container {
+    width: 71.7578125%;
+}
+
+/* --------------------------------------HIDDEN */
+.hidden {
+    display: none;
+}
+
+/* ---------------------------------------CARDS */
+/* ----------------single card sizing & margins */
+.news {
+    height: 360px !important;
+}
+/* --------------------------------image sizing */
+.card-image {
+    height: 240px !important;
+}
+img.activator {
+    height: 240px !important;
+    width: auto;
+}
+/* ----------------------title sizing & margins */
+.card-title {
+    font-size: 18px !important;
+    margin-bottom: 16px !important;
+}
+/* ---------------------------------link hovers */
+.card .source-link {
+    color: #26a69a !important;
+}
+.card .source-link:hover,
+.card .card-title:hover i {
+    color: #00796b !important;
+}
+/* ---------------------------------time posted */
+.time {
+    position: relative !important;
+    opacity: 0.5;
+    font-style: italic;
+    font-size: 12px;
+}
+.time-icon {
+    position: relative !important;
+    top: 2px;
+}
+.time-ago {
+    display: inline-block !important;
+}
+
+/* ---------------------------------ERROR CARDS */
+/* ---------------------------error card sizing */
+.err-card {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+}
+/* --------------------------error card content */
+.err-card .card-image,
+.err-card .card-content {
+    margin: 0 20px;
+}
+.err-card .card-content {
+    align-self: center;
+}
+.err-card .card-title {
+    font-size: 36px !important;
+    text-transform: uppercase !important;
+    font-weight: bold !important;
+    margin-bottom: 20px !important;
+}
+.err-img {
+    height: 190px;
+    width: auto;
+    margin: 12px 0 0;
+}
+
+/* ---------------------------------------FORMS */
+/* --------------------------------form margins */
+.form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    position: relative;
+}
+.no-m {
+    margin: 0;
+}
+.no-m-b {
+    margin-bottom: 0;
+}
+/* --------------------------------------search */
+.search-field {
+    margin-left: 0 !important;
+    position: relative !important;
+}
+/* -------------------------------search button */
+#searchBtn {
+    overflow: hidden;
+    width: 112px !important;
+    position: absolute;
+    bottom: 12px;
+    right: 10px;
+}
+.search-icon {
+    margin-right: 4px !important;
+    position: absolute;
+    left: 70px;
+    bottom: 0;
+    transition: all 0.3s ease-in-out;
+}
+.word {
+    position: absolute;
+    left: 112px;
+    bottom: 0;
+    opacity: 0.1;
+    transition: all 0.2s ease-in;
+}
+/* ------------------------search button hovers */
+#searchBtn:hover,
+#searchBtn:focus {
+    color: #26a69a;
+}
+#searchBtn:hover .word,
+#searchBtn:focus .word {
+    left: 38px;
+    opacity: 1;
+}
+#searchBtn:hover .search-icon,
+#searchBtn:focus .search-icon {
+    left: 16px;
+}
+/* -------------add & remove favourites buttons */
+#toggleBtn {
+    align-self: baseline;
+    position: absolute;
+    top: 20px;
+    left: 340px;
+    z-index: 10;
+}
+#removeBtn {
+    align-self: baseline;
+    position: absolute;
+    top: 20px;
+    left: 760px;
+    z-index: 10;
+}
