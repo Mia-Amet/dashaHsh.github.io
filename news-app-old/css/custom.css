@@ -202,4 +202,7 @@ img.activator {
     .news-container .container {
         width: 90%;
     }
+    .news-container .container .col.s6 {
+        padding: 0;
+    }
 }
