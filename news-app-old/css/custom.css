@@ -137,7 +137,7 @@ img.activator {
 #removeBtn {
     align-self: baseline;
     position: absolute;
-    top: 20px;
+    top: 6px;
     right: 30px;
     z-index: 10;
 }
@@ -145,7 +145,7 @@ img.activator {
 @media only screen and (min-device-width: 601px) and (max-device-width: 992px) {
     #toggleBtn,
     #removeBtn {
-        top: 18px;
+        top: 4px;
     }
 
     .news-container .container {
@@ -187,7 +187,7 @@ img.activator {
 
     #toggleBtn,
     #removeBtn {
-        top: 18px;
+        top: 4px;
     }
 
     .form {
