@@ -1,5 +1,7 @@
+# News App v1.0
+
 Homework Study Project
 
-News App v1.0
 Subjects: XMLHttpRequests, Classes ES6, Local Storage
+
 Framework: Materialized CSS
