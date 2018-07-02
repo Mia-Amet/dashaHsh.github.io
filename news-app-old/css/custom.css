@@ -209,12 +209,12 @@ img.activator {
 
 @media only screen and (min-device-width: 287px) and (max-device-width: 333px) {
     span.truncate.col.s11.card-title.activator.grey-text.text-darken-4 {
-        width: 90% !important!
+        width: 90% !important;
     }
 }
 
 @media only screen and (min-device-width: 0px) and (max-device-width: 286px) {
     span.truncate.col.s11.card-title.activator.grey-text.text-darken-4 {
-        width: 89% !important!
+        width: 89% !important;
     }
 }
