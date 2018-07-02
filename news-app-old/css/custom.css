@@ -167,7 +167,7 @@ img.activator {
     }
 }
 
-@media only screen and (max-device-width: 633px) {
+@media only screen and (min-device-width: 0px) and (max-device-width: 633px) {
     .news-container .container p.col.s6 {
         width: 50% !important;
     }
@@ -179,7 +179,7 @@ img.activator {
     }
 }
 
-@media only screen and (max-device-width: 600px) {
+@media only screen and (min-device-width: 0px) and (max-device-width: 600px) {
     .col.s6,
     .col.s10 {
         width: 100% !important;
