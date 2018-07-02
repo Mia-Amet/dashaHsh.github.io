@@ -203,6 +203,6 @@ img.activator {
         width: 90%;
     }
     .news-container .container .col.s6 {
-        padding: 0;
+        padding: 0 !important;
     }
 }
