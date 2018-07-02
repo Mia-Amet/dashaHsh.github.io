@@ -206,3 +206,15 @@ img.activator {
         padding: 0 !important;
     }
 }
+
+@media only screen and (min-device-width: 0px) and (max-device-width: 333px) {
+    .news-container .container .col.s11 {
+        width: 90% !important!
+    }
+}
+
+@media only screen and (min-device-width: 0px) and (max-device-width: 286px) {
+    .news-container .container .col.s11 {
+        width: 89% !important!
+    }
+}
