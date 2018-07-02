@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+<div class="news-control">
+    <div class="container">
+        <div class="card">
+            <div class="card-content">
+
+                <form class="row search-form form" name="search-form">
+                    <div class="input-field search-field col s10">
+                        <input id="search" type="text">
+                        <label for="search">Search news</label>
+                        <button type="submit" class="btn-flat icon-btn" id="searchBtn">
+                            <i class="material-icons search-icon left">search</i>
+                            <span class="word">search</span>
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+            <div class="card-tabs">
+                <ul class="tabs tabs-fixed-width">
+                    <li class="tab"><a class="active" href="#_country_category">Country & Category</a></li>
+                    <li class="tab"><a href="#_resources">Resources</a></li>
+                </ul>
+            </div>
+            <div class="card-content grey lighten-4">
+                <div id="_country_category">
+
+                    <form class="row form" name="form-1">
+                        <div class="input-field col s6">
+                            <select id="country">
+                                <option value="" disabled selected>Choose country</option>
+                            </select>
+                            <label>Country</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <select id="category">
+                                <option value="" disabled selected>All</option>
+                            </select>
+                            <label>Category (optional)</label>
+                        </div>
+                    </form>
+
+                </div>
+                <div id="_resources">
+
+                    <form class="row form" name="sources-form">
+                        <div class="input-field col s6">
+                            <select id="source" name="select">
+                                <option value="" disabled selected>Choose source</option>
+                            </select>
+                            <label>All Resources</label>
+                        </div>
+                        <button type="button" class="btn-flat hidden" id="toggleBtn">
+                            <i title="Add source to favourites" class="material-icons favourite-icon"></i>
+                        </button>
+                        <div class="input-field col s6">
+                            <select id="favourites" name="select" disabled>
+                                <option value="" disabled selected>Choose from your list</option>
+                            </select>
+                            <label>List of Favourites</label>
+                        </div>
+                        <button type="button" class="btn-flat hidden" id="removeBtn">
+                            <i title="Add source to favourites" class="material-icons favourite-icon">clear</i>
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="news-container">
+    <div class="container">
+        <div class="row"></div>
+    </div>
+</div>
+
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<!--JavaScript at end of body for optimized loading-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+<script src="js/http.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/store.js"></script>
+
+<script>
+  $(document).ready(function(){
+    $('select').formSelect();
+  });
+</script>
+
+<script src="js/app.js"></script>
+</body>
+</html>
