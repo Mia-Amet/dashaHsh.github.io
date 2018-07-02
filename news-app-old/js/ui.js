@@ -14,7 +14,7 @@ class UI {
         timeAgo = this.getTime(news);
 
     const template = `
-      <div class="col s12 m6">
+      <div class="col s6">
           <div class="card news left-align">
               <div class="card-image waves-effect waves-block waves-light">
                   <img class="activator" src="${img}">
