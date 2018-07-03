@@ -27,7 +27,7 @@ const Player = function () {
     }
 
     function setIvents() {
-
+        video.setAttribute('autoplay', 'autoplay');
 
         toggle.addEventListener('click', togglePlay);
         video.addEventListener('click', togglePlay);
