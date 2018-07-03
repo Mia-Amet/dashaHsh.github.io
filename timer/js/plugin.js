@@ -134,16 +134,11 @@ const timer = (function () {
         return this;
     }
 
-    function isPlaying() {
-        return countdown;
-    }
-
     return {
         init,
         start,
         stop,
         togglePause,
-        isPlaying
     }
 })();
 
@@ -164,15 +159,14 @@ function startTimer(e) {
 buttons.forEach(btn => btn.addEventListener('click', startTimer));
 
 form.addEventListener('submit', (e) => {
-    const value = form.elements['minutes'].value,
-        isPlaying = timer.isPlaying();
+    e.preventDefault();
+    const value = form.elements['minutes'].value;
 
     if (isNaN(value)) {
-        if (isPlaying) timer.stop();
-        return alert('Please provide number of minutes');
+        timer.togglePause(document.querySelector('.pause'));
+        alert('Please provide number of minutes');
     }
 
     timer.start(value * 60);
-    e.preventDefault();
 });
 
