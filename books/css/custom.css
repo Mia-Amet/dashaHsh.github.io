@@ -1,0 +1,8 @@
+.btn-flat:focus, .btn-flat:hover .custom__delete {
+    color: #ff5252;
+}
+
+.btn-flat.disabled:hover .custom__delete {
+    color: rgba(0, 0, 0, 0.54);
+}
+
