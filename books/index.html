@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Title</title>
+        <!-- Materialize css -->
+        <link rel="stylesheet" href="./css/materialize.css">
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Custom materialize -->
+        <link rel="stylesheet" href="./css/custom.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col s12 alert__container">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s6">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Add Book</span>
+                            <form name="addBookForm">
+                                <div class="input-field">
+                                    <input id="book_title" type="text">
+                                    <label for="book_title">Title</label>
+                                </div>
+                                <div class="input-field">
+                                    <input id="book_author" type="text">
+                                    <label for="book_author">Author</label>
+                                </div>
+                                <div class="input-field">
+                                    <input disabled value="" id="book_id" type="text">
+                                    <label for="book_id">Book ID</label>
+                                </div>
+                                <button class="btn waves-effect waves-light cyan darken-1" type="submit" name="action">Add Book</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <table class="highlight bookTable">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>ID</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="./js/materialize.js"></script>
+        <script src="./js/app.js"></script>
+    </body>
+</html>
