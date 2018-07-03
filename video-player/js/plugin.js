@@ -2,7 +2,7 @@ let numberFormat = new Intl.NumberFormat('en-En', {minimumIntegerDigits: 2, maxi
 
 const Player = function () {
     let player, video, toggle, toggleIcon, stop, volumeBtn, volumeRange,volumeIcon, volumeWrap,
-        progressBar, progress, skipBtns, timeFactor, timeNow, timeFull, mouseDown = false;
+        progressBar, progress, skipBtns, timeFactor, timeNow, timeFull, overlay, mouseDown = false;
 
     function init(playerSelector) {
         player = document.querySelector(playerSelector);
@@ -20,14 +20,18 @@ const Player = function () {
         timeFactor = player.querySelector('.time-factor');
         timeNow = timeFactor.querySelector('.time_played');
         timeFull = timeFactor.querySelector('.time_all');
+        overlay = player.querySelector('.video_overlay');
 
         setIvents();
         return this;
     }
 
     function setIvents() {
+
+
         toggle.addEventListener('click', togglePlay);
         video.addEventListener('click', togglePlay);
+        overlay.addEventListener('click', togglePlay);
         video.addEventListener('timeupdate', handleProgress);
         video.addEventListener('loadeddata', handleProgress);
         stop.addEventListener('click', stopVideo);
@@ -66,12 +70,17 @@ const Player = function () {
         const method = checkVideo() ? 'play' : 'pause';
         video[method](); // video.play() || video.pause()
         iconChange('fa-play', 'fa-pause', checkVideo, toggleIcon);
+        toggleOverlay(e);
     }
 
     function stopVideo() {
         mouseDown = false;
         video.load();
         return this;
+    }
+
+    function toggleOverlay(e) {
+        overlay.style.display = checkVideo() ? 'block' : 'none';
     }
 
     function slideUp(e) {
@@ -165,3 +174,6 @@ const Player = function () {
 };
 
 let player1 = Player().init('.player');
+
+
+
