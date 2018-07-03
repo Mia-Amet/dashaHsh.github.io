@@ -27,8 +27,6 @@ const Player = function () {
     }
 
     function setIvents() {
-        video.setAttribute('autoplay', 'autoplay');
-
         toggle.addEventListener('click', togglePlay);
         video.addEventListener('click', togglePlay);
         overlay.addEventListener('click', togglePlay);
@@ -174,6 +172,3 @@ const Player = function () {
 };
 
 let player1 = Player().init('.player');
-
-
-
