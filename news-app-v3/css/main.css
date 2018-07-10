@@ -1,0 +1,259 @@
+/* ----------------------------------CONTAINERS */
+.news-container .container {
+    width: 71.7578125%;
+}
+
+/* --------------------------------------HIDDEN */
+.hidden {
+    display: none;
+}
+
+/* ----------------------------------NAVIGATION */
+.nav-wrapper {
+    padding: 0 24px;
+}
+nav a,
+nav span,
+nav .brand-logo {
+    color: #444;
+}
+nav .brand-logo {
+    font-size: 1.7em;
+    background: url("../img/logo.png") no-repeat center left;
+    text-indent: 50px;
+}
+nav .nav-wrapper i {
+    height: 34px !important;
+    line-height: 34px !important;
+    margin-right: 4px;
+    font-size: 20px;
+}
+
+nav a:hover {
+    color: #26a69a !important;
+}
+#profile {
+    background-color: transparent !important;
+    opacity: 0;
+}
+
+/* ---------------------------------------CARDS */
+/* ----------------single card sizing & margins */
+.news {
+    height: 360px !important;
+}
+/* --------------------------------image sizing */
+.card-image {
+    height: 240px !important;
+}
+img.activator {
+    height: 240px !important;
+    width: auto;
+}
+/* ----------------------title sizing & margins */
+.card-title {
+    font-size: 18px !important;
+    margin-bottom: 16px !important;
+}
+.news-container .container p.col.s6,
+.news-container .container span.col.s11 {
+    padding: 0;
+}
+
+/* ---------------------------------link hovers */
+.card .source-link {
+    color: #26a69a !important;
+}
+.card .source-link:hover,
+.card .card-title:hover i {
+    color: #00796b !important;
+}
+/* ---------------------------------time posted */
+.time {
+    position: relative !important;
+    opacity: 0.5;
+    font-style: italic;
+    font-size: 12px;
+}
+.time-icon {
+    position: relative !important;
+    top: 2px;
+}
+.time-ago {
+    display: inline-block !important;
+}
+
+/* ---------------------------------ERROR CARDS */
+/* ---------------------------error card sizing */
+.err-card {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+}
+/* --------------------------error card content */
+.err-card .card-image,
+.err-card .card-content {
+    margin: 0 20px;
+}
+.err-card .card-content {
+    align-self: center;
+}
+.err-card .card-title {
+    font-size: 36px !important;
+    text-transform: uppercase !important;
+    font-weight: bold !important;
+    margin-bottom: 20px !important;
+}
+.err-img {
+    height: 190px;
+    width: auto;
+    margin: 12px 0 0;
+}
+
+/* ---------------------------------------FORMS */
+/* --------------------------------form margins */
+.form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    position: relative;
+}
+.no-m {
+    margin: 0;
+}
+.no-m-b {
+    margin-bottom: 0;
+}
+/* --------------------------------------search */
+.search-field {
+    margin-left: 0 !important;
+    position: relative !important;
+}
+/* -------------------------------search button */
+#searchBtn {
+    overflow: hidden;
+    width: 112px !important;
+    position: absolute;
+    bottom: 12px;
+    right: 10px;
+}
+#searchBtn .search-icon {
+    margin-right: 4px !important;
+    position: absolute;
+    left: 70px;
+    bottom: 0;
+    transition: all 0.3s ease-in-out;
+}
+#searchBtn .word {
+    position: absolute;
+    left: 112px;
+    bottom: 0;
+    opacity: 0.1;
+    transition: all 0.2s ease-in;
+}
+/* ------------------------search button hovers */
+#searchBtn:hover,
+#searchBtn:focus {
+    color: #26a69a;
+}
+#searchBtn:hover .word,
+#searchBtn:focus .word {
+    left: 38px;
+    opacity: 1;
+}
+#searchBtn:hover .search-icon,
+#searchBtn:focus .search-icon {
+    left: 16px;
+}
+/* -------------add & remove favourites buttons */
+#toggleBtn,
+#removeBtn {
+    align-self: baseline;
+    position: absolute;
+    top: 6px;
+    right: 30px;
+    z-index: 10;
+}
+
+
+@media
+(-webkit-min-device-pixel-ratio: 1.5),
+(min-resolution: 144dpi) {
+    nav .brand-logo {
+        background: url("../img/logo@2x.png") no-repeat center left;
+        background-size: 40px 47px;
+    }
+}
+
+@media only screen and (min-device-width: 601px) and (max-device-width: 992px) {
+    #toggleBtn,
+    #removeBtn {
+        top: 4px;
+    }
+
+    .news-container .container {
+        width: 88%;
+    }
+
+    .activator {
+        margin-bottom: 8px !important;
+    }
+    .col.s11 {
+        width: 90% !important;
+    }
+    .news-container .container p.col.s6 {
+        width: 100% !important;
+    }
+    .time {
+        margin-top: 4px !important;
+        text-align: left;
+    }
+}
+
+@media only screen and (min-device-width: 0px) and (max-device-width: 633px) {
+    .news-container .container p.col.s6 {
+        width: 50% !important;
+    }
+    .news-container .container .col.s6 {
+        width: 100% !important;
+    }
+    .time {
+        text-align: right;
+    }
+}
+
+@media only screen and (min-device-width: 0px) and (max-device-width: 600px) {
+    .col.s6,
+    .col.s10 {
+        width: 100% !important;
+    }
+
+    #toggleBtn,
+    #removeBtn {
+        top: 4px;
+    }
+
+    .form {
+        display: block;
+    }
+
+    .news-container .container {
+        width: 90%;
+    }
+    .news-container .container .col.s6 {
+        padding: 0 !important;
+    }
+}
+
+@media only screen and (min-device-width: 287px) and (max-device-width: 333px) {
+    span.truncate.col.s11.card-title.activator.grey-text.text-darken-4 {
+        width: 90% !important;
+    }
+}
+
+@media only screen and (min-device-width: 0px) and (max-device-width: 286px) {
+    span.truncate.col.s11.card-title.activator.grey-text.text-darken-4 {
+        width: 89% !important;
+    }
+}
