@@ -25,6 +25,9 @@
     height: 47px;
 }
 /* -------------------------------------buttons */
+.action-text {
+    font-size: 0.9em;
+}
 #loginBtn {
     box-shadow: none;
     background-color: transparent;
