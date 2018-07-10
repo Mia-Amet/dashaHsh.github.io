@@ -5,9 +5,9 @@
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
         <!-- Custom styles -->
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/custom.min.css">
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -16,35 +16,19 @@
     <body>
         <div class="news-control">
             <div class="container">
-                <nav class="grey lighten-4" role="navigation">
-                    <div class="nav-wrapper">
-                        <a id="logo-container" href="#" class="brand-logo">NewsApp</a>
-                        <div class="right">
-                            <a class="waves-effect waves-teal btn-flat" id="logout">Logout
-                                <i class="material-icons left">exit_to_app</i>
-                            </a>
-                        </div>
-                        <div class="right">
-                            <a href="#" class="waves-effect waves-teal btn-flat" id="profile" disabled="">
-                                <i class="material-icons left">person</i>
-                            </a>
-                        </div>
-                    </div>
-                </nav>
                 <div class="card">
                     <div class="card-content">
 
                         <form class="row search-form form" name="search-form">
                             <div class="input-field search-field col s10">
                                 <input id="search" type="text">
-                                <label for="search">Search news</label>
                                 <button type="submit" class="btn-flat icon-btn" id="searchBtn">
                                     <i class="material-icons search-icon left">search</i>
                                     <span class="word">search</span>
                                 </button>
                             </div>
                         </form>
-
+                        
                     </div>
                     <div class="card-tabs">
                         <ul class="tabs tabs-fixed-width">
@@ -108,19 +92,16 @@
 
 
 
-        <script
-                src="https://code.jquery.com/jquery-3.3.1.min.js"
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
+
         <!--JavaScript at end of body for optimized loading-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
-
-        <script src="js/http.js"></script>
-        <script src="js/firestore.js"></script>
-        <script src="js/main/ui.js"></script>
-        <script src="js/main/store.js"></script>
-        <script src="js/auth.js"></script>
+        
+        <script src="js/httpNew.js"></script>
+        <script src="js/ui.js"></script>
+        <script src="js/store.js"></script>
 
         <script>
           $(document).ready(function(){
@@ -128,6 +109,6 @@
           });
         </script>
 
-        <script src="js/main/app.js"></script>
+        <script src="js/app.js"></script>
     </body>
 </html>
