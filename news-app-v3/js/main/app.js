@@ -11,7 +11,7 @@ const auth = new Auth();
 // Api key
 const apiKey = "33858751ffbd4de4b076c07311c9a318";
 // Data for selects
-const countries = ['Ukraine', 'United States of America', 'Great Britain', 'Russia'],
+const countries = [{name: 'Ukraine', value: 'ua'}, {name: 'United States of America', value: 'us'}, {name: 'Great Britain', value: 'gb'}, {name: 'Russia', value: 'ru'}],
     categories = ['Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology'],
     sources = ['ABC News', 'BBC News', 'BBC Sport', 'Bloomberg', 'Business Insider', 'CNN', 'Crypto Coins News',
     'Engadget', 'Financial Post', 'Fox News', 'Fox Sport', 'Google News', 'MTV News', 'National Geographic',
@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", onContentLoad);
 
 categoriesModified.forEach(category => ui.addOption(category, selectCategory));
 sourcesModified.forEach(source => ui.addOption(source, selectSource));
+countries.forEach(country => ui.addOption(country, selectCountry));
 
 selectCountry.addEventListener("change", onChangeCountry);
 selectCategory.addEventListener("change", onChangeCountry);
@@ -63,24 +64,6 @@ logoutBtn.addEventListener("click", onLogout);
 
 // Event handlers
 function onContentLoad(e) {
-    initFormSelects();
-
-    countries.forEach(country => {
-        http.get(`https://restcountries.eu/rest/v2/name/${country}?fields=alpha2Code`)
-            .then(res => res[0].alpha2Code.toLowerCase())
-            .then(code => {
-                const obj = {
-                    name: country,
-                    value: code
-                };
-
-                ui.addOption(obj, selectCountry);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    });
-
     const favourites = store.getFavourites();
 
     if (favourites.length) {
