@@ -29,7 +29,7 @@ nav .nav-wrapper i {
     font-size: 20px;
 }
 
-nav a:hover {
+nav a.btn-flat:hover {
     color: #26a69a !important;
 }
 #profile {
