@@ -112,7 +112,7 @@ class UI {
     <div class="col s12">
       <div class="card horizontal teal lighten-4 err-card">
         <div class="card-image">
-          <img class="err-img" src="farnsworth.png">
+          <img class="err-img" src="img/farnsworth.png">
         </div>
         <div class="card-content">
           <span class="card-title">Bad news everyone!</span>
@@ -134,7 +134,7 @@ class UI {
     <div class="col s12">
       <div class="card horizontal deep-orange lighten-4 err-card">
         <div class="card-image">
-          <img class="err-img" src="bender.png">
+          <img class="err-img" src="img/bender.png">
         </div>
         <div class="card-content">
           <span class="card-title">Error ${err.status}!</span>
