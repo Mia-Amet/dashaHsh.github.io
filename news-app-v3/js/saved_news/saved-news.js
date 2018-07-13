@@ -4,7 +4,7 @@ M.AutoInit();
 const key = "33858751ffbd4de4b076c07311c9a318";
 
 const App = (function () {
-    let ui, auth, savedNews, favorites, newsStore, favoritesStore, apiKey, logoutBtn, userBtn, newsContainer;
+    let ui, auth, savedNews, favorites, newsStore, apiKey, logoutBtn, userBtn, newsContainer;
 
     // Check auth state
     firebase.auth().onAuthStateChanged(function(user) {
@@ -26,7 +26,6 @@ const App = (function () {
         savedNews = new DataBase('saved-news');
         favorites = new DataBase('favourite-sources');
         newsStore = NewsStore.getInstance();
-        favoritesStore = FavoritesStore.getInstance();
         // Api key
         apiKey = key;
         // Init elements
@@ -74,12 +73,12 @@ const App = (function () {
         savedNews.getCollection()
             .then(news => {
                 news.forEach((doc) => {
-                    ui.addSavedNews(doc.data(), doc.id);
+                    let article = doc.data();
+                    article.id = doc.id;
+                    ui.addSavedNews(article);
                 });
             })
-            .catch(err => {
-                console.log(err);
-            });
+            .catch(err => console.log(err));
     }
 
     function onLogout(e) {
@@ -91,7 +90,6 @@ const App = (function () {
     function deleteArticle(e) {
         if (e.target.closest('button').classList.contains('bookmark-delete')) {
             const id = (e.target.closest('button')).dataset.id;
-
 
             savedNews.deleteFromCollection(id)
                 .then(res => {
