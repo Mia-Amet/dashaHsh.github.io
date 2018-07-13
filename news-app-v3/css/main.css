@@ -283,8 +283,7 @@ nav a.btn-flat:hover {
     left: 16px;
 }
 /* -------------add & remove favourites buttons */
-#addBtn,
-#deleteBtn,
+#toggleBtn,
 #removeBtn {
     align-self: baseline;
     position: absolute;
