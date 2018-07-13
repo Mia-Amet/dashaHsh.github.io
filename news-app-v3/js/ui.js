@@ -1,11 +1,20 @@
 class UI {
     constructor() {
         this.container = document.querySelector(".news-container .container .row");
+        this.toggleBtn = document.getElementById("toggleBtn");
     }
 
-    addOption({name, value}, elem) {
-        const option = new Option(name, value);
+    addOption(object, elem) {
+        let option = new Option(object.name, object.value);
+        if (object.id) option.dataset.id = object.id;
+
         elem.options.add(option);
+    }
+
+    clearOptions(elem) {
+        elem.innerHTML = `
+        <option value="" selected="selected" disabled="disabled">Choose from your list</option>
+        `;
     }
 
     addNews(article, index) {
@@ -13,8 +22,6 @@ class UI {
             description = this.getDescription(article),
             timeAgo = this.getTime(article);
 
-        const btn = article.id ? this.getBtn('saved', article.id) : this.getBtn('add', index);
-
         const template = `
         <div class="col s6">
             <div class="card news left-align">
@@ -57,7 +64,10 @@ class UI {
                 <div class="card-content-last">
                     <div class="card-action">
                         <p class="source"><a class="source-link" href="${article.url}">${article.source.name}</a></p>
-                        ${btn}
+                        <button type="button" data-index="${index}" class="btn-flat bookmark">
+                            <i class="material-icons left">bookmark</i>
+                            <span>Save article</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -67,12 +77,27 @@ class UI {
         this.container.insertAdjacentHTML("beforeend", template);
     }
 
-    addSavedNews(article, id) {
+    addSavedNews(article) {
         const img = this.getImgUrl(article),
             description = this.getDescription(article),
             timeAgo = this.getTime(article);
 
-        const btn = this.getBtn('delete', id);
+        const savedBtnMarkup = `
+                <button type="button" data-id="${article.id}" class="btn-flat bookmark-saved" disabled="disabled">
+                    <i class="material-icons left">bookmark</i>
+                    <span>Saved</span>
+                </button>
+                `;
+
+        const deleteBtnMarkup = `
+                <button type="button" data-id="${article.id}" class="btn-flat bookmark-delete">
+                    <i class="material-icons left">delete</i>
+                    <span>Remove from saved</span>
+                </button>
+                `;
+
+        const main = "http://localhost/News/news-app_3.0/index.html" || "https://dashahsh.github.io/news-app-v3/index.html";
+        const btn = window.location.href === main ? savedBtnMarkup : deleteBtnMarkup;
 
         const template = `
         <div class="col s6">
@@ -124,32 +149,6 @@ class UI {
         `;
 
         this.container.insertAdjacentHTML("beforeend", template);
-    }
-
-    getBtn(keyword, int) {
-        switch (keyword) {
-            case 'add':
-                return `
-                <button type="button" data-index="${int}" class="btn-flat bookmark">
-                    <i class="material-icons left">bookmark</i>
-                    <span>Save article</span>
-                </button>
-                `;
-            case 'saved':
-                return `
-                <button type="button" data-id="${int}" class="btn-flat bookmark-saved" disabled="disabled">
-                    <i class="material-icons left">bookmark</i>
-                    <span>Saved</span>
-                </button>
-                `;
-            case 'delete':
-                return `
-                <button type="button" data-id="${int}" class="btn-flat bookmark-delete">
-                    <i class="material-icons left">delete</i>
-                    <span>Remove from saved</span>
-                </button>
-                `;
-        }
     }
 
     getImgUrl(article) {
@@ -163,44 +162,34 @@ class UI {
     getTime(article) {
         const date = Date.parse(article.publishedAt);
         const difference = (Date.now() - date) / 60000;
-        let min = Math.floor(difference);
+        let days, hours, min = Math.floor(difference);
 
-        if (difference < 1) return 'right now';
+        if (min >= 60 && min < 120) {
+            hours = 1;
+            min = min % 60;
+        } else if (min >= 120) {
+            hours = Math.floor(min / 60);
+            min = min % 60;
 
-        if (difference >= 60) {
-            let hours = Math.floor(difference / 60);
-            let min = Math.floor(difference % 60);
-
-            if (hours < 2) {
-                if (!min) {
-                    return '1 hour ago';
-                } else {
-                    return `1 hour ${min} min ago`;
-                }
-            } else {
-                if (!min) {
-                    return `${hours} hours ago`;
-                } else {
-                    return `${hours} hours ${min} min ago`;
-                }
+            if (hours >= 24 && hours < 48) {
+                days = 1;
+            } else if (hours >= 48) {
+                days = Math.floor(hours / 24);
             }
         }
 
-        if (difference >= 1440) {
-            let days = Math.floor(difference / 1440);
-
-            if (days < 2) {
-                return 'day ago';
+        if (days) {
+            return days < 2 ? `One day ago`
+                : days <= 30 ? `${days} days ago` : `Over a month ago`;
+        } else if (hours) {
+            if (!min) {
+                return hours > 1 ? `${hours} hours ago` : `One hour ago`;
             } else {
-                return `${days} days ago`;
+                return hours > 1 ? `${hours} hours ${min} min ago` : `One hour ${min} ago`;
             }
+        } else {
+            return min > 1 ? `${min} min ago` : `right now`;
         }
-
-        if (difference >= 10080) {
-            return article.publishedAt;
-        }
-
-        return `${min} min ago`;
     }
 
     clearContainer() {

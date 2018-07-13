@@ -1,5 +1,3 @@
-// Init Materialize JS features
-// M.AutoInit();
 // Api key
 const key = "33858751ffbd4de4b076c07311c9a318";
 
@@ -11,8 +9,8 @@ const App = (function () {
             'Engadget', 'Financial Post', 'Fox News', 'Fox Sport', 'Google News', 'MTV News', 'National Geographic',
             'New York Magazine', 'TechCrunch', 'The New York Times', 'The Verge', 'The Wall Street Journal', 'Wired'];
 
-    let http, ui, auth, savedNews, favorites, newsStore, favoritesStore, apiKey, countries, categories, sources, searchForm, countrySelect,
-        categorySelect, sourceSelect, favouriteSelect, logoutBtn, userBtn, searchInput, newsContainer, favoritesNow, toSaved;
+    let http, ui, auth, savedNews, favoriteSources, newsStore, apiKey, countries, categories, sources, searchForm, sourceForm, countrySelect,
+        categorySelect, sourceSelect, favoritesSelect, logoutBtn, userBtn, searchInput, newsContainer, toSaved;
 
     // Check auth state
     firebase.auth().onAuthStateChanged(function(user) {
@@ -33,21 +31,20 @@ const App = (function () {
         ui = new UI();
         auth = new Auth();
         savedNews = new DataBase('saved-news');
-        favorites = new DataBase('favourite-sources');
+        favoriteSources = new DataBase('favourite-sources');
         newsStore = NewsStore.getInstance();
-        favoritesStore = FavoritesStore.getInstance();
         // Init data
         apiKey = key;
         countries = formatData(countryData);
         categories = formatData(categoryData);
         sources = formatData(sourceData);
-        favoritesNow = [];
         // Init elements
+        sourceForm = document.forms["sources-form"];
         searchForm = document.forms["search-form"];
         countrySelect = document.getElementById("country");
         categorySelect = document.getElementById("category");
         sourceSelect = document.getElementById("source");
-        favouriteSelect = document.getElementById("favourites");
+        favoritesSelect = document.getElementById("favourites");
         logoutBtn = document.getElementById("logout");
         userBtn = document.getElementById("profile");
         searchInput = document.getElementById("search");
@@ -58,24 +55,27 @@ const App = (function () {
     }
 
     function setIvents() {
-        document.addEventListener("DOMContentLoaded", onContentLoad);
+        window.addEventListener("load", onContentLoad);
         searchForm.addEventListener("submit", onSearch);
 
         countries.forEach(country => ui.addOption(country, countrySelect));
         categories.forEach(category => ui.addOption(category, categorySelect));
         sources.forEach(source => ui.addOption(source, sourceSelect));
 
+
         countrySelect.addEventListener("change", onChangeCountry);
         categorySelect.addEventListener("change", onChangeCountry);
         sourceSelect.addEventListener("change", onChangeSource);
-        favouriteSelect.addEventListener("change", onChangeSource);
+        favoritesSelect.addEventListener("change", onChangeSource);
 
         logoutBtn.addEventListener("click", onLogout);
         toSaved.addEventListener("click", e => {
             window.location = 'saved-news.html';
             e.preventDefault();
         });
-        document.forms['sources-form'].addEventListener("click", saveFavourite);
+        sourceForm.firstElementChild.addEventListener("click", addFavorite);
+        sourceForm.firstElementChild.addEventListener("click", removeFavorite);
+        sourceForm.lastElementChild.addEventListener("click", removeFavorite);
         newsContainer.addEventListener("click", saveArticle);
     }
 
@@ -110,22 +110,21 @@ const App = (function () {
                 ui.clearContainer();
 
                 if (!news) return ui.showInfo(`To be more precise there is no news about this "${str}" at all.`);
+                newsStore.setNews(news);
 
-                savedNews.getCollection()
-                    .then(saved => {
-                        if (saved.size) {
-                            saved.forEach(doc => {
-                                const article = doc.data();
-
-                                news.forEach((item) => {
-                                    if (item.title === article.title) item.id = doc.id;
-                                });
-                            });
-                        }
-
-                        news.forEach((news, index) => ui.addNews(news, index));
-                        newsStore.setNews(news);
-                    });
+                news.forEach((article, index) => {
+                    savedNews.queryDocument('title', article.title)
+                        .then(saved => {
+                            if (saved.size) {
+                                ui.addSavedNews(saved.docs[0].data());
+                            } else {
+                                ui.addNews(article, index);
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                });
             })
             .catch(err => {
                 ui.showError({
@@ -135,12 +134,18 @@ const App = (function () {
             });
     }
 
-    function toggleFavouriteIcon(str) {
-        if (!favoritesNow || favoritesNow.indexOf(str) === -1) {
-            return 'favorite_border';
-        } else {
-            return 'favorite';
-        }
+    function checkFavorites() {
+        const options = Array.prototype.slice.call(sourceSelect.options);
+
+        options.forEach(option => {
+            favoriteSources.queryDocument('name', option.textContent)
+                .then(items => {
+                    option.dataset.id = items.size ? items.docs[0].id : '';
+                })
+                .catch(err => console.log(err));
+        });
+
+        initFormSelects();
     }
 
     function initFormSelects() {
@@ -149,17 +154,32 @@ const App = (function () {
         });
     }
 
-    function toast(title) {
-        const name = title.length >= 20 ? title.slice(0, 20) + '...' : title.slice();
-
-        M.toast({html: `Article "${name}" saved!`});
+    function toast(message) {
+        M.toast({html: `${message}`});
     }
 
     //Event handlers
     function onContentLoad(e) {
         M.AutoInit();
+        ui.clearOptions(favoritesSelect);
 
-        initFormSelects();
+        favoriteSources.getCollection()
+            .then(items => {
+                if (items.size) {
+                    favoritesSelect.removeAttribute('disabled');
+
+                    items.forEach(doc => {
+                        const option = doc.data();
+                        option.id = doc.id;
+                        ui.addOption(option, favoritesSelect);
+                    });
+
+                    initFormSelects();
+                }
+            })
+            .catch(err => console.log(err));
+
+        checkFavorites();
     }
 
     function onChangeCountry(e) {
@@ -171,17 +191,20 @@ const App = (function () {
     }
 
     function onChangeSource(e) {
-        ui.showLoader();
+        const select = e.target.closest('select'),
+            btn = select === sourceSelect ? document.getElementById('toggleBtn') : document.getElementById('removeBtn');
 
-        const select = e.target.closest('select');
+        ui.showLoader();
         showNews(`https://newsapi.org/v2/top-headlines?sources=${select.value}&apiKey=${apiKey}`, select);
+        btn.classList.remove('hidden');
 
         if (select === sourceSelect) {
-            const btn = document.getElementById('addBtn') || document.getElementById('deleteBtn');
-            btn.classList.remove('hidden');
-            document.querySelector('.favourite-icon').textContent = toggleFavouriteIcon(sourceSelect.value);
-        } else {
-            document.getElementById('removeBtn').classList.remove('hidden');
+            const currentOption = select.options.item(select.selectedIndex);
+
+            checkFavorites();
+
+            btn.firstElementChild.textContent = currentOption.dataset.id ? 'favorite' : 'favorite_border';
+            btn.dataset.action = currentOption.dataset.id ? 'delete' : 'add';
         }
     }
 
@@ -204,8 +227,9 @@ const App = (function () {
 
             savedNews.addToCollection(article)
                 .then(res => {
-                    console.log(res);
-                    toast(article.title);
+                    article.id = res.id;
+
+                    toast('Article successfully saved');
 
                     btn.classList.remove('bookmark');
                     btn.classList.add('bookmark-saved');
@@ -217,21 +241,76 @@ const App = (function () {
         }
     }
 
-    function saveFavourite(e) {
-        if (e.target.closest('button').id === 'addBtn') {
-            const index = (sourceSelect.selectedIndex - 1),
-                source = favoritesStore.getSources()[index];
+    function addFavorite(e) {
+        if (e.target.classList.contains('material-icons') && e.target.closest('button').dataset.action === 'add') {
+            const btn = e.target.closest('button'),
+                currentOption = sourceSelect.options.item(sourceSelect.selectedIndex),
+                item = sources[sourceSelect.selectedIndex - 1];
 
-            favoritesNow.push(source.value);
+            favoriteSources.addToCollection(item)
+                .then(docRef => {
+                    item.id = docRef.id;
+                    currentOption.dataset.id = docRef.id;
 
-            document.querySelector('.favourite-icon').textContent = toggleFavouriteIcon(sourceSelect.value);
+                    toast('Source was added to favorites');
 
-            favorites.addToCollection(source)
-                .then(res => console.log(res))
+                    btn.dataset.action = 'delete';
+                    e.target.textContent = 'favorite';
+
+                    favoritesSelect.removeAttribute('disabled');
+                    ui.addOption(item, favoritesSelect);
+
+                    initFormSelects();
+                })
                 .catch(err => console.log(err));
+        }
+    }
 
-            e.target.closest('button').id = 'deleteBtn'
-            //     favoritesNow = favoritesNow.filter(item => item !== source.value);
+    function removeFavorite(e) {
+        if (e.target.classList.contains('material-icons') && e.target.closest('button').dataset.action === 'delete') {
+            const btn = e.target.closest('button'),
+                select = btn.id === 'toggleBtn' ? sourceSelect : favoritesSelect,
+                currentOption = select.options.item(select.selectedIndex);
+
+            favoriteSources.deleteFromCollection(currentOption.dataset.id)
+                .then(() => {
+                    toast('Source was removed favorites');
+                    checkFavorites();
+
+                    if (btn.id === 'toggleBtn') {
+                        btn.dataset.action = 'add';
+                        e.target.textContent = 'favorite_border';
+                    } else if (sourceSelect.value === select.value) {
+                        document.getElementById('toggleBtn').dataset.action = 'add';
+                        document.getElementById('toggleBtn').firstElementChild.textContent = 'favorite_border';
+                    }
+
+                    initFormSelects();
+
+                    favoriteSources.getCollection()
+                        .then(favorites => {
+                            ui.clearOptions(favoritesSelect);
+
+                            if (!favorites.size) {
+                                favoritesSelect.disabled = 'disabled';
+                            } else {
+                                favorites.forEach(doc => {
+                                    let option = doc.data();
+                                    option.id = doc.id;
+
+                                    ui.addOption(option, favoritesSelect);
+                                })
+                            }
+
+                            if (!document.getElementById('removeBtn').classList.contains('hidden')) {
+                                document.getElementById('removeBtn').classList.add('hidden');
+                            }
+
+                            initFormSelects();
+                        })
+                        .catch(err => console.log(err));
+                })
+                .catch(err => console.log(err));
         }
     }
 
