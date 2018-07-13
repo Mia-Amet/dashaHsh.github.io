@@ -33,7 +33,7 @@ nav .nav-wrapper i {
 .bread-crumb {
     position: absolute;
     left: 196px;
-    top: 1px;
+    top: 3px;
     color: rgba(68, 68, 68, 0.7);
 }
 .bread-crumb::before {
