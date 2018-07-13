@@ -25,61 +25,177 @@ nav .brand-logo {
 nav .nav-wrapper i {
     height: 34px !important;
     line-height: 34px !important;
+    position: relative;
     margin-right: 4px;
     font-size: 20px;
 }
-
+/* --------------------------navigation buttons */
+.bread-crumb {
+    position: absolute;
+    left: 196px;
+    top: 1px;
+    color: rgba(68, 68, 68, 0.7);
+}
+.bread-crumb::before {
+    content: '/';
+    color: #444;
+    position: relative;
+    top: -1px;
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+.chevron {
+    position: relative;
+    top: 15px;
+}
 nav a.btn-flat:hover {
     color: #26a69a !important;
+}
+#saved {
+    box-shadow: none;
+    padding-left: 12px;
+    margin: 0 10px;
+    top: -1px;
+}
+#saved i,
+#saved span {
+    position: relative;
+    top: 1px;
 }
 #profile {
     background-color: transparent !important;
     opacity: 0;
+    text-transform: none;
 }
 
 /* ---------------------------------------CARDS */
 /* ----------------single card sizing & margins */
 .news {
-    height: 360px !important;
+    height: 400px !important;
+}
+.news-container .card .card-content {
+    height: 60px;
+    padding: 24px;
+    box-sizing: content-box;
+    display: flex;
+}
+.card .card-reveal-content {
+    display: flex;
+}
+.card .card-info {
+    width: 88%;
+    display: flex;
+    flex-direction: column;
+}
+.card .card-description {
+    margin-top: 40px;
+}
+.card .card-icon-activator {
+    height: 60px;
+    width: 10%;
+    display: flex !important;
+    justify-content: flex-end;
+    align-items: center;
+}
+.card-content-last {
+    width: 100%;
+    height: 60px;
+    padding: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+}
+.card-content-last .card-action {
+    height: 60px;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
 }
 /* --------------------------------image sizing */
-.card-image {
-    height: 240px !important;
+.card .card-image {
+    height: 240px;
 }
-img.activator {
-    height: 240px !important;
-    width: auto;
+.card .card-image img.activator {
+    height: auto;
 }
 /* ----------------------title sizing & margins */
 .card-title {
     font-size: 18px !important;
-    margin-bottom: 16px !important;
+    margin-bottom: 10px !important;
 }
-.news-container .container p.col.s6,
-.news-container .container span.col.s11 {
-    padding: 0;
+/* -------------------------------------buttons */
+.card .card-content-last .btn-flat.bookmark {
+    padding: 0 !important;
+    margin: 0 !important;
+    color: #26a69a !important;
+    position: relative;
+}
+.card .card-content-last .btn-flat.bookmark:hover,
+.card .card-content-last .btn-flat.bookmark:focus {
+    color: #00796b !important;
+    background: transparent !important;
+}
+.card .card-content-last .btn-flat.bookmark i {
+    margin-right: 4px;
+    top: -1px;
+    position: relative;
 }
 
-/* ---------------------------------link hovers */
-.card .source-link {
-    color: #26a69a !important;
+.card .card-content-last .btn-flat.bookmark-saved {
+    padding: 0 !important;
+    margin: 0 !important;
+    color: #444 !important;
+    position: relative;
+    opacity: 0.5;
+    background: none !important;
 }
-.card .source-link:hover,
-.card .card-title:hover i {
-    color: #00796b !important;
+.card .card-content-last .btn-flat.bookmark-saved i {
+    margin-right: 4px;
+    top: -1px;
+    position: relative;
+}
+.card .card-content-last .btn-flat.bookmark-delete {
+    padding: 0 !important;
+    margin: 0 !important;
+    color: #e57373 !important;
+    position: relative;
+    background: none !important;
+}
+.card .card-content-last .btn-flat.bookmark-delete i {
+    margin-right: 4px;
+    top: -1px;
+    position: relative;
+}
+/* --------------------------------------links */
+.card .source-link {
+    color: #444 !important;
+    text-transform: none !important;
+}
+.card .card-icon-activator i {
+    font-size: 30px;
+}
+.card .card-icon-activator i:hover {
+    cursor: pointer;
 }
 /* ---------------------------------time posted */
-.time {
+.card .card-content .time,
+.card .card-reveal .time {
     position: relative !important;
     opacity: 0.5;
     font-style: italic;
     font-size: 12px;
+    padding: 0 !important;
 }
-.time-icon {
+.card .card-content .time-icon,
+.card .card-reveal .time-icon {
     position: relative !important;
     top: 2px;
 }
-.time-ago {
+.card .card-content .time-ago,
+.card .card-reveal .time-ago {
     display: inline-block !important;
 }
 
@@ -167,7 +283,8 @@ img.activator {
     left: 16px;
 }
 /* -------------add & remove favourites buttons */
-#toggleBtn,
+#addBtn,
+#deleteBtn,
 #removeBtn {
     align-self: baseline;
     position: absolute;
@@ -186,74 +303,110 @@ img.activator {
     }
 }
 
-@media only screen and (min-device-width: 601px) and (max-device-width: 992px) {
+@media only screen and (max-width: 992px) {
+    nav .nav-wrapper {
+        position: relative;
+        width: 100%;
+    }
+    nav .brand-logo {
+        display: inline-block;
+        position: relative !important;
+        left: 78px;
+    }
     #toggleBtn,
     #removeBtn {
         top: 4px;
     }
-
     .news-container .container {
         width: 88%;
     }
+}
 
-    .activator {
-        margin-bottom: 8px !important;
+@media
+    only screen and (min-width: 541px) and (max-width: 640px),
+    only screen and (min-width: 0) and (max-width: 360px) {
+        nav .brand-logo {
+            font-size: 1.5em;
+            background-size: 30px 35.25px;
+            text-indent: 40px;
+            left: 66px;
+        }
+        nav .btn-flat {
+            font-size: 12px;
+            padding: 0 10px;
+        }
+
+        .input-field.search-field.col.s10 {
+            width: 100%;
+        }
+
+        .news {
+            height: 280px !important;
+        }
+        .news-container .card .card-content,
+        .news-container .card .card-content-last,
+        .card-content-last .card-action,
+        .card .card-icon-activator {
+            height: 40px;
+        }
+        .news-container .card .card-content {
+            padding: 20px;
+        }
+        .card .card-image {
+            height: 160px;
+        }
+        .card-content-last .card-action {
+            padding: 0 20px;
+        }
+        .card .card-content .card-title {
+            line-height: 20px;
+        }
+        .card .card-icon-activator {
+            justify-content: flex-start;
+        }
+        .card .card-icon-activator i {
+            font-size: 24px;
+        }
+
+        .card .card-content-last .btn-flat.bookmark,
+        .card .card-content-last .btn-flat.bookmark i {
+            font-size: 10px !important;
+        }
+        .card .source-link {
+            font-size: 12px !important;
+            margin: 0 !important;
+        }
     }
-    .col.s11 {
-        width: 90% !important;
-    }
-    .news-container .container p.col.s6 {
-        width: 100% !important;
-    }
-    .time {
-        margin-top: 4px !important;
-        text-align: left;
+
+@media only screen and (max-width: 600px) {
+    .news-container .container {
+        width: 94%;
     }
 }
 
-@media only screen and (min-device-width: 0px) and (max-device-width: 633px) {
-    .news-container .container p.col.s6 {
-        width: 50% !important;
-    }
-    .news-container .container .col.s6 {
-        width: 100% !important;
-    }
-    .time {
-        text-align: right;
-    }
-}
-
-@media only screen and (min-device-width: 0px) and (max-device-width: 600px) {
-    .col.s6,
-    .col.s10 {
-        width: 100% !important;
-    }
-
-    #toggleBtn,
-    #removeBtn {
-        top: 4px;
+@media only screen and (max-width: 540px) {
+    #profile {
+        display: none;
     }
 
     .form {
         display: block;
     }
+    .input-field.search-field.col.s10 {
+        width: 100%;
+    }
 
-    .news-container .container {
-        width: 90%;
+    .col.s6,
+    .row .col.s6 {
+        width: 100% !important;
     }
-    .news-container .container .col.s6 {
-        padding: 0 !important;
+
+    nav .brand-logo {
+        font-size: 1.5em;
+        background-size: 30px 35.25px;
+        text-indent: 40px;
+        left: 66px;
     }
+
 }
 
-@media only screen and (min-device-width: 287px) and (max-device-width: 333px) {
-    span.truncate.col.s11.card-title.activator.grey-text.text-darken-4 {
-        width: 90% !important;
-    }
-}
-
-@media only screen and (min-device-width: 0px) and (max-device-width: 286px) {
-    span.truncate.col.s11.card-title.activator.grey-text.text-darken-4 {
-        width: 89% !important;
-    }
-}
