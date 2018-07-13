@@ -11,7 +11,7 @@ const App = (function () {
             'Engadget', 'Financial Post', 'Fox News', 'Fox Sport', 'Google News', 'MTV News', 'National Geographic',
             'New York Magazine', 'TechCrunch', 'The New York Times', 'The Verge', 'The Wall Street Journal', 'Wired'];
 
-    let http, ui, store, auth, savedNews, favorites, newsStore, favoritesStore, apiKey, countries, categories, sources, searchForm, countrySelect,
+    let http, ui, auth, savedNews, favorites, newsStore, favoritesStore, apiKey, countries, categories, sources, searchForm, countrySelect,
         categorySelect, sourceSelect, favouriteSelect, logoutBtn, userBtn, searchInput, newsContainer, favoritesNow, toSaved;
 
     // Check auth state
@@ -31,7 +31,6 @@ const App = (function () {
         // Init modules
         http = new HttpNew();
         ui = new UI();
-        store = new Store();
         auth = new Auth();
         savedNews = new DataBase('saved-news');
         favorites = new DataBase('favourite-sources');
