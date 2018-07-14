@@ -73,7 +73,7 @@ nav a.btn-flat:hover {
 .news {
     height: 400px !important;
 }
-.news-container .card .card-content {
+.news-container .news .card-content {
     height: 60px;
     padding: 24px;
     box-sizing: content-box;
