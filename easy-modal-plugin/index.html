@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="">
+        <title>Title</title>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+
+        <!-- Font awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+        <style>
+            h3 {
+                margin-bottom: 20px;
+            }
+            .myModal, .myModal2 {
+                height: 460px;
+                width: 500px;
+                background-color: white;
+                display: none;
+                padding: 40px;
+            }
+            .modal-action {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 40px;
+            }
+            .myCloseClass {
+                margin: 4px;
+            }
+            .fa-times {
+                position: absolute;
+                margin: 0;
+                padding: 5px;
+                top: 20px;
+                right: 20px;
+                color: rgba(0, 0, 0, 0.3);
+            }
+            .fa-times:hover {
+                cursor: pointer;
+                color: rgba(0, 0, 0, 0.4);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <button class="btn btn-success mt-5" data-modal data-target=".myModal">Open modal</button>
+            <button class="btn btn-success mt-5" data-modal data-target=".myModal2">Open modal 2</button>
+        </div>
+
+        <!-- Modal -->
+        <div class="myModal">
+            <h3 class="text-center mt-2">Hello, world!</h3>
+            <i class="fas fa-times myCloseClass"></i>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.</p>
+            <div class="modal-action">
+                <button class="btn btn-info myCloseClass">Accept</button>
+                <button class="btn btn-secondary myCloseClass">Decline</button>
+            </div>
+        </div>
+        <!-- /.myModal -->
+        <div class="myModal2">
+            <i class="fas fa-times myCloseClass"></i>
+            <h3 class="text-center mt-2">Hello, world 2!</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.</p>
+            <div class="modal-action">
+                <button class="btn btn-info myCloseClass">Accept</button>
+                <button class="btn btn-secondary myCloseClass">Decline</button>
+            </div>
+        </div>
+        <!-- /.myModal -->
+
+        <script
+                src="https://code.jquery.com/jquery-3.3.1.min.js"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+                crossorigin="anonymous"></script>
+        <script src="js/easyModal.js"></script>
+        <script>
+            $("[data-modal]").on("click", function (e) {
+                const target = $(this).attr("data-target");
+
+                $(target).easyModal({
+                    overlayOpacity: 0.6,
+                    closeClass: ".myCloseClass"
+                });
+            });
+
+        </script>
+    </body>
+</html>
