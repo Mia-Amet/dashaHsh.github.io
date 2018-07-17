@@ -1,16 +1,13 @@
-// Api key
-const key = "33858751ffbd4de4b076c07311c9a318";
-
 const App = (function () {
     // Required data
     const countryData = [{'Ukraine': 'ua'}, {'United States': 'us'}, {'Great Britain': 'gb'}, {'Russia': 'ru'}];
     const categoryData = ['Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology'];
     const sourceData = ['ABC News', 'BBC News', 'BBC Sport', 'Bloomberg', 'Business Insider', 'CNN', 'Crypto Coins News',
-            'Engadget', 'Financial Post', 'Fox News', 'Fox Sport', 'Google News', 'MTV News', 'National Geographic',
+            'Engadget', 'Financial Post', 'Fox News', 'Google News', 'MTV News', 'National Geographic',
             'New York Magazine', 'TechCrunch', 'The New York Times', 'The Verge', 'The Wall Street Journal', 'Wired'];
 
     let http, ui, auth, savedNews, favoriteSources, newsStore, apiKey, countries, categories, sources, searchForm, sourceForm, countrySelect,
-        categorySelect, sourceSelect, favoritesSelect, logoutBtn, userBtn, searchInput, newsContainer, toSaved;
+        categorySelect, sourceSelect, favoritesSelect, logoutBtn, userBtn, searchInput, newsContainer, toSaved, toasts;
 
     // Check auth state
     firebase.auth().onAuthStateChanged(function(user) {
@@ -25,7 +22,7 @@ const App = (function () {
         }
     });
 
-    function init(key) {
+    function init() {
         // Init modules
         http = new HttpNew();
         ui = new UI();
@@ -34,10 +31,16 @@ const App = (function () {
         favoriteSources = new DataBase('favourite-sources');
         newsStore = NewsStore.getInstance();
         // Init data
-        apiKey = key;
+        apiKey = "dfccbef1d7264b1ba2815be91c96c336";
         countries = formatData(countryData);
         categories = formatData(categoryData);
         sources = formatData(sourceData);
+        toasts = [
+            {remove: 'news', text: 'Article removed'},
+            {remove: 'source', text: 'Source removed'},
+            {add: 'news', text: 'Article saved'},
+            {add: 'source', text: 'Source added'}
+            ];
         // Init elements
         sourceForm = document.forms["sources-form"];
         searchForm = document.forms["search-form"];
@@ -77,6 +80,7 @@ const App = (function () {
         sourceForm.firstElementChild.addEventListener("click", removeFavorite);
         sourceForm.lastElementChild.addEventListener("click", removeFavorite);
         newsContainer.addEventListener("click", saveArticle);
+        newsContainer.addEventListener("click", closeErrCard);
     }
 
     function formatData(array) {
@@ -154,10 +158,6 @@ const App = (function () {
         });
     }
 
-    function toast(message) {
-        M.toast({html: `${message}`});
-    }
-
     //Event handlers
     function onContentLoad(e) {
         M.AutoInit();
@@ -184,7 +184,7 @@ const App = (function () {
 
     function onChangeCountry(e) {
         ui.showLoader();
-        if (!countrySelect.value) return ui.showInfo("Quite impossible of course! First you should pick a country");
+        if (!countrySelect.value) return ui.showInfo("Please, specify your request: first pick a country");
 
         showNews(`https://newsapi.org/v2/top-headlines?country=${countrySelect.value}&category=${categorySelect.value}&apiKey=${apiKey}`,
             e.target.closest('select'));
@@ -229,7 +229,7 @@ const App = (function () {
                 .then(res => {
                     article.id = res.id;
 
-                    toast('Article successfully saved');
+                    ui.showToast(toasts[2]);
 
                     btn.classList.remove('bookmark');
                     btn.classList.add('bookmark-saved');
@@ -252,7 +252,7 @@ const App = (function () {
                     item.id = docRef.id;
                     currentOption.dataset.id = docRef.id;
 
-                    toast('Source was added to favorites');
+                    ui.showToast(toasts[3]);
 
                     btn.dataset.action = 'delete';
                     e.target.textContent = 'favorite';
@@ -274,7 +274,7 @@ const App = (function () {
 
             favoriteSources.deleteFromCollection(currentOption.dataset.id)
                 .then(() => {
-                    toast('Source was removed favorites');
+                    ui.showToast(toasts[1]);
                     checkFavorites();
 
                     if (btn.id === 'toggleBtn') {
@@ -314,10 +314,17 @@ const App = (function () {
         }
     }
 
+    function closeErrCard(e) {
+        if (e.target.classList.contains('myCloseClass')) {
+            const card = e.target.closest('.col.s12');
+            UI.fade(card);
+        }
+    }
+
     return {
         init
     }
 
 })();
 
-App.init(key);
+App.init();
