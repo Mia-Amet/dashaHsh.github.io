@@ -1,10 +1,8 @@
 // Init Materialize JS features
 M.AutoInit();
-// Api key
-const key = "33858751ffbd4de4b076c07311c9a318";
 
 const App = (function () {
-    let ui, auth, savedNews, favorites, newsStore, apiKey, logoutBtn, userBtn, newsContainer;
+    let ui, auth, savedNews, favorites, newsStore, apiKey, logoutBtn, userBtn, newsContainer, toasts;
 
     // Check auth state
     firebase.auth().onAuthStateChanged(function(user) {
@@ -19,7 +17,7 @@ const App = (function () {
         }
     });
 
-    function init(key) {
+    function init() {
         // Init modules
         ui = new UI();
         auth = new Auth();
@@ -27,11 +25,18 @@ const App = (function () {
         favorites = new DataBase('favourite-sources');
         newsStore = NewsStore.getInstance();
         // Api key
-        apiKey = key;
+        apiKey = "dfccbef1d7264b1ba2815be91c96c336";
         // Init elements
         logoutBtn = document.getElementById("logout");
         userBtn = document.getElementById("profile");
         newsContainer = document.querySelector(".news-container");
+
+        toasts = [
+            {remove: 'news', text: 'Article removed'},
+            {remove: 'source', text: 'Source removed'},
+            {add: 'news', text: 'Article saved'},
+            {add: 'source', text: 'Source added'}
+        ];
 
         setIvents();
     }
@@ -40,10 +45,6 @@ const App = (function () {
         document.addEventListener("DOMContentLoaded", onLoad);
         logoutBtn.addEventListener("click", onLogout);
         newsContainer.addEventListener("click", deleteArticle);
-    }
-
-    function toast() {
-        M.toast({html: `Article successfully deleted!`});
     }
 
     function showNews(url, str) {
@@ -94,7 +95,7 @@ const App = (function () {
             savedNews.deleteFromCollection(id)
                 .then(res => {
                     console.log(res);
-                    toast();
+                    ui.showToast(toasts[0]);
                     setTimeout(() => window.location.reload(true), 2000);
                 })
                 .catch(err => console.log(err));
@@ -107,4 +108,4 @@ const App = (function () {
 
 })();
 
-App.init(key);
+App.init();
