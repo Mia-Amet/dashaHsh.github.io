@@ -73,10 +73,17 @@ const App = (function () {
     function onLoad(e) {
         savedNews.getCollection()
             .then(news => {
+                let timeout = 0;
+
                 news.forEach((doc) => {
                     let article = doc.data();
                     article.id = doc.id;
-                    ui.addSavedNews(article);
+
+                    setTimeout(() => {
+                        ui.addSavedNews(article);
+                    }, timeout);
+
+                    timeout += 300;
                 });
             })
             .catch(err => console.log(err));
