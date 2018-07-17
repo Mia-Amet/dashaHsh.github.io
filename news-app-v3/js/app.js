@@ -111,6 +111,7 @@ const App = (function () {
                 return res.articles;
             })
             .then(news => {
+                let timeout = 0;
                 ui.clearContainer();
 
                 if (!news) return ui.showInfo(`To be more precise there is no news about this "${str}" at all.`);
@@ -120,10 +121,15 @@ const App = (function () {
                     savedNews.queryDocument('title', article.title)
                         .then(saved => {
                             if (saved.size) {
-                                ui.addSavedNews(saved.docs[0].data());
+                                setTimeout(() => {
+                                    ui.addSavedNews(saved.docs[0].data());
+                                }, timeout)
                             } else {
-                                ui.addNews(article, index);
+                                setTimeout(() => {
+                                    ui.addNews(article, index);
+                                }, timeout)
                             }
+                            timeout += 300;
                         })
                         .catch(err => {
                             console.log(err);

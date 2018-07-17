@@ -23,8 +23,13 @@ class UI {
             description = this.getDescription(article),
             timeAgo = this.getTime(article);
 
+        const card = document.createElement('div');
+        card.classList.add('col', 's6');
+        card.style.opacity = 0;
+        card.style.position = 'relative';
+        card.style.transition = '0.3s ease-out';
+
         const template = `
-        <div class="col s6">
             <div class="card news left-align">
                 <div class="card-image waves-effect waves-block waves-light">
                     <img class="activator" src="${img}">
@@ -72,16 +77,26 @@ class UI {
                     </div>
                 </div>
             </div>
-        </div>
         `;
 
-        this.container.insertAdjacentHTML("beforeend", template);
+        card.innerHTML = template;
+        this.container.insertAdjacentElement("beforeend", card);
+
+        setTimeout(() => {
+            UI.bounceNews(card);
+        }, 300);
     }
 
     addSavedNews(article) {
         const img = this.getImgUrl(article),
             description = this.getDescription(article),
             timeAgo = this.getTime(article);
+
+        const card = document.createElement('div');
+        card.classList.add('col', 's6');
+        card.style.opacity = 0;
+        card.style.position = 'relative';
+        card.style.transition = '0.4s ease-out';
 
         const savedBtnMarkup = `
                 <button type="button" data-id="${article.id}" class="btn-flat bookmark-saved" disabled="disabled">
@@ -101,7 +116,6 @@ class UI {
         const btn = window.location.href === main ? savedBtnMarkup : deleteBtnMarkup;
 
         const template = `
-        <div class="col s6">
             <div class="card news left-align">
                 <div class="card-image waves-effect waves-block waves-light">
                     <img class="activator" src="${img}">
@@ -146,10 +160,14 @@ class UI {
                     </div>
                 </div>
             </div>
-        </div>
         `;
 
-        this.container.insertAdjacentHTML("beforeend", template);
+        card.innerHTML = template;
+        this.container.insertAdjacentElement("beforeend", card);
+
+        setTimeout(() => {
+            UI.bounceNews(card);
+        }, 300);
     }
 
     getImgUrl(article) {
@@ -383,7 +401,6 @@ class UI {
         `;
 
         card.innerHTML = template;
-
         this.container.insertAdjacentElement("afterbegin", card);
         UI.bubble(card);
     }
@@ -478,6 +495,32 @@ class UI {
         this.alertsContainer.insertAdjacentElement("beforeend", alert);
 
         UI.bubble(alert);
+    }
+
+    static bounceNews(element) {
+        let opacity = 0;
+        let translateY = 200;
+
+        function animate(time) {
+            opacity += 0.05;
+
+            if (parseFloat(element.style.opacity) < 0.75) {
+                translateY -= 15;
+            } else {
+                translateY += 5;
+            }
+
+            element.style.opacity = opacity;
+            element.style.transform = `translateY(${translateY}px)`;
+
+            const raf = requestAnimationFrame(animate);
+
+            if (parseFloat(element.style.opacity) >= 1) {
+                cancelAnimationFrame(raf);
+            }
+        }
+
+        animate();
     }
 
     static bubble(element) {
