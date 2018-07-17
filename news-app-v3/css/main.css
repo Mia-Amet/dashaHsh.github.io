@@ -2,6 +2,12 @@
 .news-container .container {
     width: 71.7578125%;
 }
+.alerts-wrapper {
+    position: fixed;
+    top: 50px;
+    right: 10%;
+    z-index: 999;
+}
 
 /* --------------------------------------HIDDEN */
 .hidden {
@@ -202,9 +208,33 @@ nav a.btn-flat:hover {
 /* ---------------------------------ERROR CARDS */
 /* ---------------------------error card sizing */
 .err-card {
-    height: 200px;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10%;
+    color: #334F55;
+}
+/* -----------------------------------------svg */
+.svg {
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+#sad_cloud {
+    transform: rotate(9deg) translateX(-20px) translateY(-2px);
+}
+#info_cloud {
+    transform: rotate(-8deg) translateY(4px) translateX(20px);
+}
+#sad_face,
+#info_face {
+    transform: translateY(2px);
+}
+/* --------------------------error card buttons */
+.btn.myCloseClass {
+    box-shadow: none;
 }
 /* --------------------------error card content */
 .err-card .card-image,
@@ -212,18 +242,30 @@ nav a.btn-flat:hover {
     margin: 0 20px;
 }
 .err-card .card-content {
-    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transform: translateX(-30px);
+    z-index: 5;
 }
 .err-card .card-title {
-    font-size: 36px !important;
+    font-size: 20px !important;
     text-transform: uppercase !important;
     font-weight: bold !important;
-    margin-bottom: 20px !important;
+    margin: 0 !important;
 }
-.err-img {
-    height: 190px;
-    width: auto;
-    margin: 12px 0 0;
+.alert .card-title {
+    font-size: 14px !important;
+    text-transform: uppercase !important;
+    font-weight: bold !important;
+    margin: 0 0 0 10px !important;
+    color: #334F55;
+}
+
+/* --------------------------------------TOASTS */
+.alert {
+
 }
 
 /* ---------------------------------------FORMS */

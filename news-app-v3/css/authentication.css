@@ -91,25 +91,42 @@
 .err-card {
     display: flex;
     justify-content: center;
+    color: #334F55;
+    margin-top: 0 !important;
 }
-
+/* -----------------------------------------svg */
+.svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 0 4%;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#sad_cloud {
+    transform: rotate(9deg) translateX(2px);
+}
 /* --------------------------error card content */
-.err-card .card-content .card-title {
-    margin: 0;
-    font-size: 26px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-/* -------------------------------error card img */
-.err-img {
-    height: 90px;
-    width: auto;
-    margin: 10px 0 0;
-}
 .err-card .card-image,
 .err-card .card-content {
-    margin: 0 10px;
+    margin: 0 20px;
+}
+.err-card .card-content {
+    display: flex;
+    width: 75%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+.err-card .card-title {
+    font-size: 20px !important;
+    line-height: 24px !important;
+    text-transform: uppercase !important;
+    font-weight: bold !important;
+    margin: 0 0 6px 0!important;
 }
 
 /* -----------------------------------ADDITIONAL */
