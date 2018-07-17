@@ -505,7 +505,7 @@ class UI {
             opacity += 0.05;
 
             if (parseFloat(element.style.opacity) < 0.75) {
-                translateY -= 15;
+                translateY -= 14;
             } else {
                 translateY += 5;
             }
